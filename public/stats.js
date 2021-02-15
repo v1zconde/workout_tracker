@@ -1,12 +1,3 @@
-// fetch("/api/workouts/range")
-//   .then(response => {
-//     return response.json();
-//   })
-//   .then(data => {
-//     populateChart(data);
- 
-//   });
-
 function generatePalette() {
   const arr = [
     '#003f5c',
@@ -31,7 +22,6 @@ function generatePalette() {
 }
 
 function populateChart(data) {
-  console.log(JSON.stringify(data));
   let durations = data.map(({ totalDuration }) => totalDuration);
   let pounds = calculateTotalWeight(data);
   let workouts = workoutNames(data);
@@ -54,7 +44,7 @@ function populateChart(data) {
 
   const labels = data.map(({ day }) => {
     const date = new Date(day);
-    return daysOfWeek[date.getDay()];
+    return daysOfWeek[date.getDay()] + " " + day.slice(0, 10);
   });
 
   let lineChart = new Chart(line, {
