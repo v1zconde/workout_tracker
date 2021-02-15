@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Fitness Tracker</title>
+</head>
+
+<body>
+  <nav>
+    <a href="/">Fitness Tracker</a>
+    <a href="/stats">Dashboard</a>
+  </nav>
+  <div class="wrapper">
+    <header>
+      <h1>Fitness Tracker</h1>
+    </header>
+    <div class="ui container exercise">
+      <div class="ui raised card m-auto">
+        <h2>Delete Exercise</h2>
+        <form action="DELETE">
+          <div class="exercises">
+            <label for="type">Exercise Type:</label>
+            <select id="exercises-options">
+              <option disabled selected>Select Exercise</option>
+    
+            </select>
+          </div>
+          <div class="buttons">
+            <button disabled class="huge ui blue button complete">
+              Complete
+            </button>
+            <button disabled class="huge ui positive button delete-another">
+              Delete Exercise
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id="toast">
+    Workout deleted Successfully!
+  </div>
+  <script src= "https://code.jquery.com/jquery-3.3.1.min.js"> </script> 
+  <script src="/api.js"></script>
+  <script src="/edit.js"></script>
+  
+</body>
+
+</html>

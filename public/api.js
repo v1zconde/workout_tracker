@@ -41,4 +41,17 @@ const API = {
 
     return json;
   },
+  async deleteExercise(data) {
+      console.log(data, data.idExercise)
+    const res = await fetch("/api/delete/" + data.idExercise, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    const json = await res.json();
+
+    return json;
+  },
+
+
 };
