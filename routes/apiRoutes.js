@@ -77,6 +77,7 @@ router.delete("/api/delete/:id", (req, res) => {
       res.status(400).json(err);
   });
 });
+
 router.get("/api/workouts/:id", (req, res) => {
   console.log(req.params.id, "test")
   Workout.aggregate()
@@ -92,6 +93,5 @@ router.get("/api/workouts/:id", (req, res) => {
     });
 
 });
-
 
 module.exports = router;

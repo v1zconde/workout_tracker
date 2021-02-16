@@ -63,19 +63,22 @@ console.log(allExercises, "allexercises")
       let duration;
       let totalDuration;
       let totalCalories;
+      let workout_id;
       for (var i = 0; i < allExercises[position].exercises.length; i++) {
         data_id = allExercises[position].exercises[i]["_id"];
+        workout_id = allExercises[position]._id;
         name = allExercises[position].exercises[i]["name"];
         duration = allExercises[position].exercises[i]["duration"]
         var calories = allExercises[position].exercises[i]["calories"]
         totalDuration = allExercises[position]["totalDuration"]
         totalCalories = allExercises[position]["totalCalories"]
 console.log(totalCalories)
+console.log(data_id, workout_id)
         snippet = `
        <p class="data-entry">
-      <span class="dataTitle" data-id=${data_id}>Type: ${name}    
+      <span class="dataTitle" data-id="${data_id}">Type: ${name}    
       Duration: ${duration} Minutes Calories: ${calories}</span>
-      <span onClick="delete" class="delete" data-id=${data_id}>x</span>
+      <span onClick="delete" class="delete" data-workout="${workout_id}" data-id="${data_id}">x</span>
       </p>`;
    
       exerciseList.insertAdjacentHTML("beforeend", snippet);
@@ -83,7 +86,7 @@ console.log(totalCalories)
     }
     snippetTotal = `
     <p class="data-entry">---------------------------------------------------------------------------------
-    <span class="dataTitle" data-id=${data_id}>Total Duration: ${totalDuration} minutes Calories: ${totalCalories}</span>
+    <span class="dataTitle" data-id="${data_id}">Total Duration: ${totalDuration} minutes Calories: ${totalCalories}</span>
     </p>`;
     exerciseList.insertAdjacentHTML("beforeend", snippetTotal);
     }
@@ -122,6 +125,21 @@ if (editButton) {
 }
 toast.addEventListener("animationend", handleToastAnimationEnd);
 
-
+exerciseList.addEventListener("click", async function(e) {
+  if (e.target.matches(".delete")) {
+ 
+      element = e.target;
+      data_id = element.getAttribute("data-id");
+      workout_id = element.getAttribute("data-workout")
+      console.log(element, data_id, workout_id)
+      element.parentNode.remove();
+      var deleteExercise = {
+        lastWorkout : workout_id,
+        idExercise : data_id
+      }
+    await API.deleteExercise(deleteExercise)
+        
+    };
+  })
 
 init();
