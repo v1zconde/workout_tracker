@@ -31,7 +31,7 @@ function renderExercises(allWorkouts) {
 
 for (i = 0; i < allWorkouts.length; i++){
     var day = allWorkouts[i].day.slice(5, 10)
-    let option = `<option value="${allWorkouts[i]._id}">${i+1}- Day: ${day} Minutes: ${allWorkouts[i].totalDuration} Minutes Calories: ${allWorkouts[i].totalCalories} Calories</option>`;
+    let option = `<option value="${allWorkouts[i]._id}">${i+1}- Day: ${day} || Time: ${allWorkouts[i].totalDuration} Minutes || Calories: ${allWorkouts[i].totalCalories}</option>`;
     $("#workouts-options").append(option);
 }
 
@@ -76,8 +76,8 @@ console.log(totalCalories)
 console.log(data_id, workout_id)
         snippet = `
        <p class="data-entry">
-      <span class="dataTitle" data-id="${data_id}">Type: ${name}    
-      Duration: ${duration} Minutes Calories: ${calories}</span>
+      <span class="dataTitle" data-id="${data_id}">Type: ${name} ||    
+      Duration: ${duration} Minutes || Calories: ${calories}</span>
       <span onClick="delete" class="delete" data-workout="${workout_id}" data-id="${data_id}">x</span>
       </p>`;
    
@@ -86,7 +86,7 @@ console.log(data_id, workout_id)
     }
     snippetTotal = `
     <p class="data-entry">---------------------------------------------------------------------------------
-    <span class="dataTitle" data-id="${data_id}">Total Duration: ${totalDuration} minutes Calories: ${totalCalories}</span>
+    <span class="dataTitle" data-id="${data_id}">Total Duration: ${totalDuration} minutes || Total Calories: ${totalCalories}</span>
     </p>`;
     exerciseList.insertAdjacentHTML("beforeend", snippetTotal);
     }
