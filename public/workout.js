@@ -10,6 +10,7 @@ async function initWorkout() {
     const workoutSummary = {
       date: formatDate(lastWorkout.day),
       totalDuration: lastWorkout.totalDuration,
+      totalCalories: lastWorkout.totalCalories,
       numExercises: lastWorkout.exercises.length,
       ...tallyExercises(lastWorkout.exercises)
     };
@@ -51,6 +52,7 @@ function renderWorkoutSummary(summary) {
   const workoutKeyMap = {
     date: "Date",
     totalDuration: "Total Workout Duration",
+    totalCalories: "Total Calories",
     numExercises: "Exercises Performed",
     totalWeight: "Total Weight Lifted",
     totalSets: "Total Sets Performed",

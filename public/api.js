@@ -63,5 +63,16 @@ const API = {
 
     return json;
   },
-
+  async getWorkout(id) {
+  
+    let res;
+    try {
+      res = await fetch("/api/workouts/" + id);
+    } catch (err) {
+      console.log(err)
+    }
+    const json = await res.json();
+    console.log(json);
+    return json;
+  },
 };

@@ -7,8 +7,9 @@ const Workout = require("../models/workout");
 
 router.get("/api/workouts", (req, res) => {
   Workout.aggregate()
-    .addFields({ totalDuration: { $sum: "$exercises.duration" } })
-
+    .addFields({ 
+      totalDuration: { $sum: "$exercises.duration" }, 
+      totalCalories: { $sum: "$exercises.calories" } })
     .then((data) => {
       res.json(data);
     })
@@ -54,9 +55,10 @@ router.get("/api/workouts/range", (req, res) => {
   Workout.aggregate()
     .sort({ day: -1 })
     .limit(7)
-    .addFields({ totalDuration: { $sum: "$exercises.duration" } })
+    .addFields({ totalDuration: { $sum: "$exercises.duration" }, totalCalories: { $sum: "$exercises.calories" }})
     .then((data) => {
       res.json(data);
+
     })
     .catch((err) => {
       res.json(err);
@@ -75,18 +77,20 @@ router.delete("/api/delete/:id", (req, res) => {
       res.status(400).json(err);
   });
 });
+router.get("/api/workouts/:id", (req, res) => {
+  console.log(req.params.id, "test")
+  Workout.aggregate()
+    //  .match({ _id: { $in: [req.params.id]}})
+    .addFields({ 
+      totalDuration: { $sum: "$exercises.duration" }, 
+      totalCalories: { $sum: "$exercises.calories" } })
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 
-router.delete("/api/delete/:id", (req, res) => {
-
-  Workout.updateOne({_id: req.body.lastWorkout}, {$pull: {exercises: {_id: req.params.id}}})
-  
-  .then(() => {
-    console.log("deleted")
-      res.json(true);
-  })
-  .catch(err => {
-      res.status(400).json(err);
-  });
 });
 
 

@@ -13,9 +13,10 @@ const completeButton = document.querySelector("button.complete");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
 const newWorkout = document.querySelector(".new-workout")
-
+let calories = 0;
 let workoutType = null;
 let shouldNavigateAway = false;
+let workoutData = {};
 
 async function initExercise() {
   let workout;
@@ -98,13 +99,14 @@ function validateInputs() {
 async function handleFormSubmit(event) {
   event.preventDefault();
 
-  let workoutData = {};
 
+  var query;
   if (workoutType === "cardio") {
     workoutData.type = "cardio";
     workoutData.name = cardioNameInput.value.trim();
     workoutData.distance = Number(distanceInput.value.trim());
     workoutData.duration = Number(durationInput.value.trim());
+    query = workoutData.name + " for " + workoutData.distance + " miles in " + workoutData.duration + " minutes"
   } else if (workoutType === "resistance") {
     workoutData.type = "resistance";
     workoutData.name = nameInput.value.trim();
@@ -112,11 +114,17 @@ async function handleFormSubmit(event) {
     workoutData.sets = Number(setsInput.value.trim());
     workoutData.reps = Number(repsInput.value.trim());
     workoutData.duration = Number(resistanceDurationInput.value.trim());
+    query = workoutData.name + " weight " + workoutData.weight + " lbs " + workoutData.sets + " sets " + workoutData.reps + " reps " + workoutData.duration + " duration"
   }
 
-  await API.addExercise(workoutData);
-  clearInputs();
-  toast.classList.add("success");
+exercise(query, workoutData)
+
+
+}
+
+async function call() {
+
+
 }
 
 function handleToastAnimationEnd() {
@@ -154,3 +162,31 @@ toast.addEventListener("animationend", handleToastAnimationEnd);
 document
   .querySelectorAll("input")
   .forEach(element => element.addEventListener("input", validateInputs));
+
+
+  async function exercise(varExercise, workoutData) {
+    console.log(varExercise);
+
+    await $.ajax({
+      url: `https://trackapi.nutritionix.com/v2/natural/exercise`,
+      headers: {
+        "x-app-id": "263ad9b6",
+        "x-app-key": "125ecacb1d54725e8b4bc6cdea6f0e53",
+        "Content-Type": "application/json",
+      },
+      type: "POST",
+      dataType: "json",
+      processData: false,
+      data: JSON.stringify({
+        query: varExercise,
+      }),
+      success: async function (response) {
+
+        workoutData.calories = response.exercises[0].nf_calories;
+        console.log(workoutData);
+        await API.addExercise(workoutData);
+        clearInputs();
+        toast.classList.add("success");
+      },
+    });
+  }

@@ -42,6 +42,10 @@ const workoutSchema = new Schema({
         type: Number,
         //required: "Number of sets required",
       },
+      calories: {
+        type: Number,
+        //required: "Number of sets required",
+      },
     },
   ],
   // totalDuration: {

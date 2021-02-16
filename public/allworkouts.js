@@ -2,6 +2,7 @@ const toast = document.querySelector("#toast");
 const completeButton = document.querySelector("button.complete");
 const editButton = document.querySelector("button.edit-another");
 const selectWorkout = document.querySelector("#workouts-options");
+let exerciseList = document.getElementById("results");
 let workoutExercise = null;
 let shouldNavigateAway = false;
 let lastWorkoutId = null;
@@ -29,7 +30,8 @@ function renderNoExercises() {
 function renderExercises(allWorkouts) {
 
 for (i = 0; i < allWorkouts.length; i++){
-    let option = `<option value="${allWorkouts[i]._id}">${i+1}- Day: ${allWorkouts[i].day} Duration: ${allWorkouts[i].totalDuration} minutes</option>`;
+    var day = allWorkouts[i].day.slice(5, 10)
+    let option = `<option value="${allWorkouts[i]._id}">${i+1}- Day: ${day} Minutes: ${allWorkouts[i].totalDuration} Minutes Calories: ${allWorkouts[i].totalCalories} Calories</option>`;
     $("#workouts-options").append(option);
 }
 
@@ -40,14 +42,56 @@ async function handleFormSubmit(event) {
   let workoutData = {
      lastWorkout: workoutExercise,
     }
-
-  location.href = "/?id=" + workoutData.lastWorkout;
+console.log(workoutData.lastWorkout)
+  location.href = "/edit?id=" + workoutData.lastWorkout;
 
   toast.classList.add("success");
 }
 
-function handleSelectExercise(event) {
+async function handleSelectExercise(event) {
     workoutExercise = event.target.value;
+    exerciseList.innerHTML = "";
+    const allExercises = await API.getWorkout(workoutExercise);
+
+console.log(allExercises, "allexercises")
+  allExercises.map((exercise, position)=> {
+    if (exercise._id === workoutExercise){
+      console.log(allExercises[position].exercises)
+      console.log(allExercises[position])
+      let data_id;
+      let name;
+      let duration;
+      let totalDuration;
+      let totalCalories;
+      for (var i = 0; i < allExercises[position].exercises.length; i++) {
+        data_id = allExercises[position].exercises[i]["_id"];
+        name = allExercises[position].exercises[i]["name"];
+        duration = allExercises[position].exercises[i]["duration"]
+        var calories = allExercises[position].exercises[i]["calories"]
+        totalDuration = allExercises[position]["totalDuration"]
+        totalCalories = allExercises[position]["totalCalories"]
+console.log(totalCalories)
+        snippet = `
+       <p class="data-entry">
+      <span class="dataTitle" data-id=${data_id}>Type: ${name}    
+      Duration: ${duration} Minutes Calories: ${calories}</span>
+      <span onClick="delete" class="delete" data-id=${data_id}>x</span>
+      </p>`;
+   
+      exerciseList.insertAdjacentHTML("beforeend", snippet);
+
+    }
+    snippetTotal = `
+    <p class="data-entry">---------------------------------------------------------------------------------
+    <span class="dataTitle" data-id=${data_id}>Total Duration: ${totalDuration} minutes Calories: ${totalCalories}</span>
+    </p>`;
+    exerciseList.insertAdjacentHTML("beforeend", snippetTotal);
+    }
+
+  })
+
+  
+
     if (workoutExercise){
       editButton.removeAttribute("disabled");
       completeButton.removeAttribute("disabled");
@@ -55,7 +99,6 @@ function handleSelectExercise(event) {
     else{
       editButton.addAttribute("disabled");
         completeButton.addAttribute("disabled");
-   
     }
   }
 
