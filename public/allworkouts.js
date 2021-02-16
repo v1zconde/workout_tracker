@@ -1,21 +1,21 @@
 const toast = document.querySelector("#toast");
 const completeButton = document.querySelector("button.complete");
-const deleteButton = document.querySelector("button.delete-another");
-const selectExercise = document.querySelector("#exercises-options");
+const editButton = document.querySelector("button.edit-another");
+const selectWorkout = document.querySelector("#workouts-options");
 let workoutExercise = null;
 let shouldNavigateAway = false;
 let lastWorkoutId = null;
 async function init() {
 
     
-    const lastWorkout = await API.getLastWorkout();
-    console.log("Last workout:", lastWorkout);
-    if (lastWorkout) {
-    lastWorkoutId = lastWorkout._id
+    const allWorkouts = await API.allWorkouts();
+    console.log("Last workout:", allWorkouts);
+    if (allWorkouts) {
+    // lastWorkoutId = lastWorkout._id
  
         //  location.search = "?id=" + lastWorkout._id;
   
-         renderExercises(lastWorkout);
+         renderExercises(allWorkouts);
     } else {
         console.log("no workout")
         renderNoExercises()
@@ -26,11 +26,11 @@ function renderNoExercises() {
   console.log("no exercises");
 }
 
-function renderExercises(lastWorkout) {
+function renderExercises(allWorkouts) {
 
-for (i = 0; i < lastWorkout.exercises.length; i++){
-    let option = `<option value="${lastWorkout.exercises[i]._id}">${i+1}- Name: ${lastWorkout.exercises[i].name} Duration: ${lastWorkout.exercises[i].duration} minutes</option>`;
-    $("#exercises-options").append(option);
+for (i = 0; i < allWorkouts.length; i++){
+    let option = `<option value="${allWorkouts[i]._id}">${i+1}- Day: ${allWorkouts[i].day} Duration: ${allWorkouts[i].totalDuration} minutes</option>`;
+    $("#workouts-options").append(option);
 }
 
 }
@@ -38,29 +38,26 @@ for (i = 0; i < lastWorkout.exercises.length; i++){
 async function handleFormSubmit(event) {
   event.preventDefault();
   let workoutData = {
-      idExercise: workoutExercise,
-      lastWorkout: lastWorkoutId,
+     lastWorkout: workoutExercise,
     }
-  await API.deleteExercise(workoutData);
-  toast.classList.add("success");
-  $("#exercises-options").empty()
-  init();
-}
 
+  location.href = "/?id=" + workoutData.lastWorkout;
+
+  toast.classList.add("success");
+}
 
 function handleSelectExercise(event) {
     workoutExercise = event.target.value;
     if (workoutExercise){
-      deleteButton.removeAttribute("disabled");
+      editButton.removeAttribute("disabled");
       completeButton.removeAttribute("disabled");
     }
     else{
-        deleteButton.addAttribute("disabled");
+      editButton.addAttribute("disabled");
         completeButton.addAttribute("disabled");
    
     }
   }
-
 
 function handleToastAnimationEnd() {
     toast.removeAttribute("class");
@@ -69,17 +66,16 @@ function handleToastAnimationEnd() {
     }
   }
 
-if (selectExercise) {
-    selectExercise.addEventListener("change", handleSelectExercise);
+if (selectWorkout) {
+  selectWorkout.addEventListener("change", handleSelectExercise);
 }
 if (completeButton) {
   completeButton.addEventListener("click", function (event) {
     shouldNavigateAway = true;
-
   });
 }
-if (deleteButton) {
-  deleteButton.addEventListener("click", handleFormSubmit);
+if (editButton) {
+  editButton.addEventListener("click", handleFormSubmit);
 }
 toast.addEventListener("animationend", handleToastAnimationEnd);
 

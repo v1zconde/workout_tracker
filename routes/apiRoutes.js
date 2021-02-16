@@ -8,6 +8,7 @@ const Workout = require("../models/workout");
 router.get("/api/workouts", (req, res) => {
   Workout.aggregate()
     .addFields({ totalDuration: { $sum: "$exercises.duration" } })
+
     .then((data) => {
       res.json(data);
     })
@@ -49,6 +50,7 @@ router.post("/api/workouts", (req, res) => {
 });
 
 router.get("/api/workouts/range", (req, res) => {
+
   Workout.aggregate()
     .sort({ day: -1 })
     .limit(7)
@@ -59,6 +61,19 @@ router.get("/api/workouts/range", (req, res) => {
     .catch((err) => {
       res.json(err);
     });
+});
+
+router.delete("/api/delete/:id", (req, res) => {
+
+  Workout.updateOne({_id: req.body.lastWorkout}, {$pull: {exercises: {_id: req.params.id}}})
+  
+  .then(() => {
+    console.log("deleted")
+      res.json(true);
+  })
+  .catch(err => {
+      res.status(400).json(err);
+  });
 });
 
 router.delete("/api/delete/:id", (req, res) => {

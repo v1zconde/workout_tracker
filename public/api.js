@@ -52,6 +52,16 @@ const API = {
 
     return json;
   },
+  async allWorkouts() {
+    let res;
+    try {
+      res = await fetch("/api/workouts");
+    } catch (err) {
+      console.log(err)
+    }
+    const json = await res.json();
 
+    return json;
+  },
 
 };
