@@ -29,7 +29,7 @@ function renderNoExercises() {
 function renderExercises(lastWorkout) {
 
 for (i = 0; i < lastWorkout.exercises.length; i++){
-    let option = `<option value="${lastWorkout.exercises[i]._id}">${i+1}- Name: ${lastWorkout.exercises[i].name} Duration: ${lastWorkout.exercises[i].duration} minutes</option>`;
+    let option = `<option value="${lastWorkout.exercises[i]._id}">${i+1}- Type: ${lastWorkout.exercises[i].name} Duration: ${lastWorkout.exercises[i].duration} minutes Calories: ${lastWorkout.exercises[i].calories}</option>`;
     $("#exercises-options").append(option);
 }
 

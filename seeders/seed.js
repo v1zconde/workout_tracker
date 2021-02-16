@@ -15,11 +15,12 @@ let workoutSeed = [
         name: "Bicep Curl",
         duration: 20,
         weight: 100,
+        calories: 285,
         reps: 10,
         sets: 4
       }
     ],
-    totalDuration: 20,
+
   },
   {
     day: new Date(new Date().setDate(new Date().getDate() -9)),
@@ -29,11 +30,12 @@ let workoutSeed = [
         name: "Lateral Pull",
         duration: 20,
         weight: 300,
+        calories: 250,
         reps: 10,
         sets: 4
       }
     ],
-    totalDuration: 20,
+
   },
   {
     day: new Date(new Date().setDate(new Date().getDate() -8)),
@@ -43,11 +45,12 @@ let workoutSeed = [
         name: "Push Press",
         duration: 25,
         weight: 185,
+        calories: 140,
         reps: 8,
         sets: 4
       }
     ],
-    totalDuration: 25,
+
   },
   {
     day: new Date(new Date().setDate(new Date().getDate() -7)),
@@ -56,10 +59,11 @@ let workoutSeed = [
         type: "cardio",
         name: "Running",
         duration: 25,
+        calories: 300,
         distance: 4
       }
     ],
-    totalDuration: 25,
+
   },
   {
     day: new Date(new Date().setDate(new Date().getDate() -6)),
@@ -69,11 +73,12 @@ let workoutSeed = [
         name: "Bench Press",
         duration: 20,
         weight: 285,
+        calories: 300,
         reps: 10,
         sets: 4
       }
     ],
-    totalDuration: 20,
+
   },
   {
     day: new Date(new Date().setDate(new Date().getDate() -5)),
@@ -83,11 +88,12 @@ let workoutSeed = [
         name: "Bench Press",
         duration: 20,
         weight: 300,
+        calories: 800,
         reps: 10,
         sets: 4
       }
     ],
-    totalDuration: 20,
+
   },
   {
     day: new Date(new Date().setDate(new Date().getDate() - 4)),
@@ -96,12 +102,13 @@ let workoutSeed = [
         type: "resistance",
         name: "Quad Press",
         duration: 30,
+        calories: 550,
         weight: 300,
         reps: 10,
         sets: 4
       }
     ],
-    totalDuration: 30,
+
   },
   {
     day: new Date(new Date().setDate(new Date().getDate() - 3)),
@@ -110,12 +117,13 @@ let workoutSeed = [
         type: "resistance",
         name: "Bench Press",
         duration: 20,
+        calories: 350,
         weight: 300,
         reps: 10,
         sets: 4
       }
     ],
-    totalDuration: 20,
+
   },
   {
     day: new Date(new Date().setDate(new Date().getDate() - 2)),
@@ -124,12 +132,13 @@ let workoutSeed = [
         type: "resistance",
         name: "Military Press",
         duration: 20,
+        calories: 150,
         weight: 300,
         reps: 10,
         sets: 4
       }
     ],
-    totalDuration: 20,
+
   }
 ];
 
