@@ -44,7 +44,7 @@ npm i
 ### How to Use
 ----
 ```
-  1- Enter the website xxxxxx.
+  1- Enter the website https://workout-tracker333.herokuapp.com/.
   2- You can create new workouts, add new exercises or delete exercises to current last workout
   3- You can go and check all workouts by date and delete any exercise.
   4- You can watch the data of last 7 workouts in graphs.
@@ -56,11 +56,23 @@ Github Repo URL:
 [https://github.com/v1zconde/workout_tracker](https://github.com/v1zconde/workout_tracker)
 
 Heroku Deployed URL: 
-[https://burger-logger3.herokuapp.com/](https://burger-logger3.herokuapp.com/)
+[https://workout-tracker333.herokuapp.com/](https://workout-tracker333.herokuapp.com/)
 
 ---
 ### Index Example
-![Index](./public/assets/img/index.png)
+![Index](./public/img/index.png)
+
+### Index Example
+![Delete Exercise](./public/img/deleteExercise.png)
+
+### Index Example
+![Add Exercise](./public/img/addExercise.png)
+
+### Index Example
+![All Workouts](./public/img/allworkouts.png)
+
+### Index Example
+![Dashboard](./public/img/dashboard.png)
 
 
   ## Questions
